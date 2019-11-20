@@ -13,8 +13,9 @@ public class Role extends AbstractEntity
 
 		private String name;
 
-	    @ManyToMany(mappedBy = "roles")
-	    private Set<UserDetails> users;
+	/*
+	 * @ManyToMany(mappedBy = "roles") private Set<UserDetails> users;
+	 */
 	    // this mapped by tells that the mapping is defined in the roles entity
 
 		public String getName() {
@@ -25,17 +26,15 @@ public class Role extends AbstractEntity
 			this.name = name;
 		}
 
-		public Set<UserDetails> getUsers() {
-			return users;
-		}
-
-		public void setUsers(Set<UserDetails> users) {
-			this.users = users;
-		}
+	/*
+	 * public Set<UserDetails> getUsers() { return users; }
+	 * 
+	 * public void setUsers(Set<UserDetails> users) { this.users = users; }
+	 */
 	    
-	  	@Override
-		public String toString() {
-			return "Role [name=" + name + ", users=" + users + "]";
-		}
+	/*
+	 * @Override public String toString() { return "Role [name=" + name + ", users="
+	 * + users + "]"; }
+	 */
 	    
 }

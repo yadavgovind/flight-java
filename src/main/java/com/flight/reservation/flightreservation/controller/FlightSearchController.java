@@ -27,26 +27,32 @@ public class FlightSearchController {
 		List<Flight> returnlist= flightRepository.findFlights(flightDto.getArrivalCity(),flightDto.getDepartureCity());
 		FlightSearchDto flightSearchDto=new FlightSearchDto();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		List<Flight> departFlightInfo=new ArrayList<Flight>();
-		List<Flight> arrivalFlightInfo=new ArrayList<Flight>();
-		Date searchDateDepart =(Date)formatter.parse(flightDto.getDateOfDeparture());
-		Date searchDateReturn =(Date)formatter.parse(flightDto.getDateOfReturn());
-		
+		List<Flight> departFlightInfo = new ArrayList<Flight>();
+		List<Flight> arrivalFlightInfo= new ArrayList<Flight>();
+		//Date searchDateDepart =(Date)formatter.parse(flightDto.getDateOfDeparture());
+		//Date searchDateReturn =(Date)formatter.parse(flightDto.getDateOfReturn());
 		for(Flight flight :departlist){
-			if(null!=flight.getDateOfDeparture()){
+			/*if(null!=flight.getDateOfDeparture()){
 			Date departDate=(Date) formatter.parse(flight.getDateOfDeparture());
 			if(departDate.compareTo(searchDateDepart)==0){
 				departFlightInfo.add(flight);
 			}
-			}
+			}*/
+			System.out.println("flight.getDepartureCity():"+flight.getDepartureCity());
+			System.out.println("flight.ArrivalCity()():"+flight.getArrivalCity());
+			departFlightInfo.add(flight);
 		}
 		for(Flight flight :returnlist){
-			if(null!=flight.getDateOfReturn()){
+			/*if(null!=flight.getDateOfReturn()){
 			Date returnDate=(Date) formatter.parse(flight.getDateOfReturn());
 			if(returnDate.compareTo(searchDateReturn)==0){
 				arrivalFlightInfo.add(flight);
 			}
-			}
+			}*/
+
+			System.out.println("return flight.getDepartureCity():"+flight.getDepartureCity());
+			System.out.println("return flight.ArrivalCity()():"+flight.getArrivalCity());
+			arrivalFlightInfo.add(flight);
 		}
 		flightSearchDto.setArrivalFlightList(departFlightInfo);
 		flightSearchDto.setDepartFlightList(arrivalFlightInfo);

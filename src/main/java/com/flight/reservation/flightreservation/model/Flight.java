@@ -67,7 +67,4 @@ public class Flight extends AbstractEntity{
 	public void setDateOfReturn(String dateOfReturn) {
 		this.dateOfReturn = dateOfReturn;
 	}
-	
-	
-	
 }

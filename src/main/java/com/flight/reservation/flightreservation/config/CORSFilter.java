@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class CORSFilter implements Filter {
+public abstract class CORSFilter implements Filter {
 
     @Override
     public void destroy() { }
