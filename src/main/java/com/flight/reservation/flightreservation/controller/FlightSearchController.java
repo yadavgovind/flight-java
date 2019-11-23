@@ -20,6 +20,7 @@ import com.flight.reservation.flightreservation.repository.FlightRepository;
 public class FlightSearchController { 
 	@Autowired
 	private FlightRepository flightRepository;
+	
 	@RequestMapping("/getFlights")
 	public FlightSearchDto getFlights(Flight flightDto ) throws Exception
 	{
