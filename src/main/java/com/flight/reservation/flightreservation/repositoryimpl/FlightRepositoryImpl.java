@@ -12,6 +12,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.junit.platform.commons.util.StringUtils;
+
 import com.flight.reservation.flightreservation.filter.FlightFilter;
 import com.flight.reservation.flightreservation.model.Flight;
 import com.flight.reservation.flightreservation.repository.FlightRepositoryCustom;
@@ -36,19 +38,23 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom{
 		CriteriaQuery<Flight> criteria =  builder.createQuery(Flight.class);
 		Root<Flight> root = criteria.from(Flight.class);
 		 List<Predicate> criteriaList = new ArrayList<>();
-		String str1= filter.getStartDate()+" 00:00:00";
-		String str2= filter.getStartDate()+" 00:00:00";
-		 LocalDateTime startDate = LocalDateTime.parse(str1, formatter);
-		 
-		 LocalDateTime endDate = LocalDateTime.parse(str2, formatter);;
+		
+	
+		if(StringUtils.isNotBlank(filter.getStartDate())) {
+			String str1= filter.getStartDate()+" 00:00:00";
+			LocalDateTime startDate = LocalDateTime.parse(str1, formatter);
 	        Predicate arivaldateC = builder.equal(root.get("start_date"), startDate);
 	        criteriaList.add(arivaldateC);
-
-	        Predicate departureDateC = builder.equal(root.get("end_date"), endDate);
-	        criteriaList.add(departureDateC);
+		}
+		if(StringUtils.isNotBlank(filter.getEndDate())) {
+			String str2= filter.getEndDate()+" 00:00:00";
+			  LocalDateTime endDate = LocalDateTime.parse(str2, formatter);;
+		        Predicate departureDateC = builder.equal(root.get("end_date"), endDate);
+		        criteriaList.add(departureDateC);
+		}
 	        Predicate departureCityC = builder.equal(root.get("departurecity"), filter.getDeparturecity());
 	        criteriaList.add(departureCityC);
-	        Predicate arrivalCityC = builder.equal(root.get("departurecity"), filter.getArrivalCity());
+	        Predicate arrivalCityC = builder.equal(root.get("arrivalcity"), filter.getArrivalCity());
 	        criteriaList.add(arrivalCityC);
 	        criteria.where(builder.and(criteriaList.toArray(new Predicate[0])));
 	        criteria.select( root );
