@@ -34,7 +34,7 @@ public class UserRigistrationController {
 	public UserDetails  verifyUser(@RequestBody UserDetails user) { 
 		UserDetails userDetails = new UserDetails();
 		try {
-		//	userDetails = userRepository.findByEmail(user.getEmail());
+	   userDetails = userRepository.findByEmail(user.getEmail());
 			//System.out.println(userDetails.getEmail()+"<--email, return userDetails.getUserName:"+userDetails.getUserName());
 			
 		}catch(Error er) {
