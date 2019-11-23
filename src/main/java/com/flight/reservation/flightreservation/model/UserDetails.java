@@ -2,6 +2,7 @@ package com.flight.reservation.flightreservation.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -12,8 +13,8 @@ import javax.persistence.Table;
 @Table(name = "USERDETAILS")
 public class UserDetails extends AbstractEntity {
 	
-	private Long mobileNumber;
-	private String userName;
+	private Long mobilenumber;
+	private String username;
 	private String password;
 	private String email;
 
@@ -44,23 +45,24 @@ public class UserDetails extends AbstractEntity {
 		System.out.println("setemail:"+email);
 		this.email = email;
 	}
-
-	public Long getMobileNumber() {
-		System.out.println("get Mobilenumber:"+mobileNumber);
-		return mobileNumber;
+	
+	
+	public Long getMobilenumber() {
+		System.out.println("get Mobilenumber:"+mobilenumber);
+		return mobilenumber;
 	}
 
 	public void setMobileNumber(Long mobileNumber) {
 
 		System.out.println("setMobilenumber:"+mobileNumber);
-		this.mobileNumber = mobileNumber;
+		this.mobilenumber = mobileNumber;
+	}
+	
+	public String getUsername() {
+		return username;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String userName) {
+		this.username = userName;
 	}
 }

@@ -25,7 +25,7 @@ public class FlightRegistrationDAOImpl implements FlightReservationDAO {
 //		List<UserDetails> userdetails=query.list();
 		System.out.println("userdetails:" + userdetails);
 		for (UserDetails userDetails2 : userdetails) {
-			System.out.println("Username:" + userDetails2.getUserName());
+			System.out.println("Username:" + userDetails2.getUsername());
 			System.out.println("Email:" + userDetails2.getEmail());
 		}
 

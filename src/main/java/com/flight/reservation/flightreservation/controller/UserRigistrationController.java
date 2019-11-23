@@ -30,11 +30,11 @@ public class UserRigistrationController {
 	}
 
 	@RequestMapping(value = "/verifyUser", produces = "application/json", consumes = "application/json", method = RequestMethod.POST)
-	public UserDetails  verifyUser() {//@RequestBody UserDetails user 
+	public UserDetails  verifyUser(@RequestBody UserDetails user) { 
 		UserDetails userDetails = new UserDetails();
 		try {
-			userDetails = userRepository.findByEmail("narendra.iiithyd@gmail.com");
-			System.out.println(userDetails.getEmail()+"<--email, return userDetails.getUserName:"+userDetails.getUserName());
+			userDetails = userRepository.findByEmail(user.getEmail());
+			//System.out.println(userDetails.getEmail()+"<--email, return userDetails.getUserName:"+userDetails.getUserName());
 			
 		}catch(Error er) {
 			System.out.println(er);

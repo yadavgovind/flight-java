@@ -17,7 +17,7 @@ import com.flight.reservation.flightreservation.repository.FlightRepository;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/flight")
-public class FlightSearchController {
+public class FlightSearchController { 
 	@Autowired
 	private FlightRepository flightRepository;
 	@RequestMapping("/getFlights")
@@ -29,6 +29,7 @@ public class FlightSearchController {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		List<Flight> departFlightInfo = new ArrayList<Flight>();
 		List<Flight> arrivalFlightInfo= new ArrayList<Flight>();
+		System.out.println(" In Method getFlights ");
 		//Date searchDateDepart =(Date)formatter.parse(flightDto.getDateOfDeparture());
 		//Date searchDateReturn =(Date)formatter.parse(flightDto.getDateOfReturn());
 		for(Flight flight :departlist){

@@ -14,7 +14,7 @@ import com.flight.reservation.flightreservation.model.Flight;
 import com.flight.reservation.flightreservation.model.UserDetails;
 import com.flight.reservation.flightreservation.repository.UserRepository;
 
-public class UserRegistrationImpl implements UserRepository{
+public class UserRegistrationImpl implements UserRepository {
 
 	@Override
 	public List<UserDetails> findAll() {

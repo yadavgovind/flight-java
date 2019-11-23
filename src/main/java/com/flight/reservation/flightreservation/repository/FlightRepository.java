@@ -12,8 +12,8 @@ import com.flight.reservation.flightreservation.model.Flight;
 public interface FlightRepository extends JpaRepository<Flight,Long>{
 	
 	
-	 @Query("from Flight where departureCity=:departureCity and arrivalCity=:arrivalCity ")
-	    List<Flight> findFlights(@Param("departureCity") String from, @Param("arrivalCity") String to);
+	 @Query("from Flight where departurecity=:departureCity and arrivalcity=:arrivalCity ")
+	 List<Flight> findFlights(@Param("departureCity") String from, @Param("arrivalCity") String to);
 
 	Optional<Flight> findById(Long flightId);
 
