@@ -11,9 +11,7 @@ public class Flight extends AbstractEntity{
 	private String flightnumber;
 	private String operatingairlines;
 	 
-	private String arrivalcity;
-//	private String dateofdeparture;
-//	private String dateofarrival;
+	private Integer arrivalcity ;
 	private Double economyprice;
 	 
 	private String arrival_time;
@@ -27,7 +25,6 @@ public class Flight extends AbstractEntity{
 	private Double business_price ;
 	private Integer checkin_baggage ;
 	private Integer hand_baggage ;
-	//private String flighttype;
 	
 	public String getFlightNumber() {
 		return flightnumber;
@@ -42,10 +39,10 @@ public class Flight extends AbstractEntity{
 		this.operatingairlines = operatingairlines;
 	}
 	 
-	public String getArrivalCity() {
+	public Integer getArrivalCity() {
 		return arrivalcity;
 	}
-	public void setArrivalCity(String arrivalcity) {
+	public void setArrivalCity(Integer arrivalcity) {
 		this.arrivalcity = arrivalcity;
 	}
 	 
@@ -75,12 +72,7 @@ public class Flight extends AbstractEntity{
 	public void setOperatingairlines(String operatingairlines) {
 		this.operatingairlines = operatingairlines;
 	}
-	public String getArrivalcity() {
-		return arrivalcity;
-	}
-	public void setArrivalcity(String arrivalcity) {
-		this.arrivalcity = arrivalcity;
-	}
+	 
 	 
 	public Double getEconomyprice() {
 		return economyprice;

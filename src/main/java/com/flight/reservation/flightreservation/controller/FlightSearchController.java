@@ -1,14 +1,12 @@
 package com.flight.reservation.flightreservation.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,11 +27,15 @@ public class FlightSearchController {
 	@Autowired
 	private CityRepository  cityRepository;
 	
-	@RequestMapping("/getFlights")
-	public FlightSearchDto getFlights() throws Exception
+	@PostMapping(value="/getFlights")
+	public FlightSearchDto getFlights(@RequestBody FlightFilter flightFilter) throws Exception
 	{
-		
-		List<Flight> arivalFlights = flightRepository.findAll(new FlightFilter());
+//		FlightFilter flightFilter = new FlightFilter();	
+//		flightFilter.setArrivalCity(1);
+//		flightFilter.setDeparturecity(2);
+//		flightFilter.setStartDate("2019-11-12");
+//		flightFilter.setStartDate("2019-11-20");
+		List<Flight> arivalFlights = flightRepository.findAll(flightFilter);
 		FlightSearchDto flightSearchDto=new FlightSearchDto();
 		 
 		flightSearchDto.setArrivalFlightList(  arivalFlights);

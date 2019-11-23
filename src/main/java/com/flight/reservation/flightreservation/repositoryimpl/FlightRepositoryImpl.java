@@ -1,5 +1,7 @@
 package com.flight.reservation.flightreservation.repositoryimpl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,27 +25,41 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom{
 	EntityManager entityManager;
 	
 	 
+	String str = "2016-03-04";
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 	 
 	@Override
 	public List<Flight> findAll(FlightFilter filter) {
+		
 		CriteriaBuilder builder= entityManager.getCriteriaBuilder();
 		CriteriaQuery<Flight> criteria =  builder.createQuery(Flight.class);
 		Root<Flight> root = criteria.from(Flight.class);
-//		 List<Predicate> criteriaList = new ArrayList<>();
-//
-//	        Predicate firstCondition = builder.equal(root.get("start_date"), filter.getStart_date() );
-//	        criteriaList.add(firstCondition);
-//
-//	        Predicate secondCondition = builder.equal(root.get("end_date"), filter.getEnd_date());
-//	        criteriaList.add(secondCondition);
+		 List<Predicate> criteriaList = new ArrayList<>();
+		String str1= filter.getStartDate()+" 00:00:00";
+		String str2= filter.getStartDate()+" 00:00:00";
+		 LocalDateTime startDate = LocalDateTime.parse(str1, formatter);
+		 
+		 LocalDateTime endDate = LocalDateTime.parse(str2, formatter);;
+	        Predicate arivaldateC = builder.equal(root.get("start_date"), startDate);
+	        criteriaList.add(arivaldateC);
 
-//	        Predicate thirdCondition = builder.equal(sts.get("senseIndex"), filter.);
-//	        criteriaList.add(thirdCondition);
+	        Predicate departureDateC = builder.equal(root.get("end_date"), endDate);
+	        criteriaList.add(departureDateC);
+	        Predicate departureCityC = builder.equal(root.get("departurecity"), filter.getDeparturecity());
+	        criteriaList.add(departureCityC);
+	        Predicate arrivalCityC = builder.equal(root.get("departurecity"), filter.getArrivalCity());
+	        criteriaList.add(arrivalCityC);
+	        criteria.where(builder.and(criteriaList.toArray(new Predicate[0])));
 	        criteria.select( root );
-//	        criteria.where(builder.and(criteriaList.toArray(new Predicate[0])));
-	      
 		List<Flight> flights = entityManager.createQuery( criteria ).getResultList();
 		return flights;
+	}
+	
+	public static void main(String[] args) {
+		String str = "2016-03-04 00:00:00";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		 LocalDateTime startDate = LocalDateTime.parse("2016-03-04"+" "+"00:00:00", formatter);
+		System.out.println(startDate);
 	}
 }
