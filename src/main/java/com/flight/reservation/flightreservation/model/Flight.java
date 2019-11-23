@@ -5,66 +5,65 @@ import javax.persistence.Entity;
 @Entity
 public class Flight extends AbstractEntity{
 	
-	private String flightNumber;
-	private String operatingAirlines;
-	private String departureCity;
-	private String arrivalCity;
-	private String dateOfDeparture;
-	private String dateOfReturn;
-	private Double price;
-	private int seatNo;
-	private String flightType;
+	private String flightnumber;
+	private String operatingairlines;
+	private String departurecity;
+	private String arrivalcity;
+	private String dateofdeparture;
+	private String dateofarrival;
+	private Double economyprice;
+	private int numseats;
+	//private String flighttype;
 	
 	public String getFlightNumber() {
-		return flightNumber;
+		return flightnumber;
 	}
-	public void setFlightNumber(String flightNumber) {
-		this.flightNumber = flightNumber;
+	public void setFlightNumber(String flightnumber) {
+		this.flightnumber = flightnumber;
 	}
 	public String getOperatingAirlines() {
-		return operatingAirlines;
+		return operatingairlines;
 	}
-	public void setOperatingAirlines(String operatingAirlines) {
-		this.operatingAirlines = operatingAirlines;
+	public void setoperatingairlines(String operatingairlines) {
+		this.operatingairlines = operatingairlines;
 	}
 	public String getDepartureCity() {
-		return departureCity;
+		return departurecity;
 	}
-	public void setDepartureCity(String departureCity) {
-		this.departureCity = departureCity;
+	public void setDepartureCity(String departurecity) {
+		this.departurecity = departurecity;
 	}
 	public String getArrivalCity() {
-		return arrivalCity;
+		return arrivalcity;
 	}
-	public void setArrivalCity(String arrivalCity) {
-		this.arrivalCity = arrivalCity;
+	public void setArrivalCity(String arrivalcity) {
+		this.arrivalcity = arrivalcity;
 	}
 	public String getDateOfDeparture() {
-		return dateOfDeparture;
+		return dateofdeparture;
 	}
 	
 	public Double getPrice() {
-		return price;
+		return economyprice;
 	}
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setPrice(Double economyprice) {
+		this.economyprice = economyprice;
 	}
 	public int getSeatNo() {
-		return seatNo;
+		return numseats;
 	}
-	public void setSeatNo(int seatNo) {
-		this.seatNo = seatNo;
+	public void setSeatNo(int numseats) {
+		this.numseats = numseats;
+	}/*	public String getFlightType() {
+		return flighttype;
 	}
-	public String getFlightType() {
-		return flightType;
+	public void setFlightType(String flighttype) {
+		this.flighttype = flighttype;
+	}*/
+	public String getDateofarrival() {
+		return dateofarrival;
 	}
-	public void setFlightType(String flightType) {
-		this.flightType = flightType;
-	}
-	public String getDateOfReturn() {
-		return dateOfReturn;
-	}
-	public void setDateOfReturn(String dateOfReturn) {
-		this.dateOfReturn = dateOfReturn;
+	public void setDateofarrival(String dateofarrival) {
+		this.dateofarrival = dateofarrival;
 	}
 }
