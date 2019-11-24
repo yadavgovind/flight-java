@@ -38,8 +38,6 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom{
 		CriteriaQuery<Flight> criteria =  builder.createQuery(Flight.class);
 		Root<Flight> root = criteria.from(Flight.class);
 		 List<Predicate> criteriaList = new ArrayList<>();
-		
-	
 		if(StringUtils.isNotBlank(filter.getDepartureDate() )) {
 			String str1= filter.getDepartureDate()+" 00:00:00";
 			LocalDateTime startDate = LocalDateTime.parse(str1, formatter);
