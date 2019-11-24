@@ -2,20 +2,21 @@ package com.flight.reservation.flightreservation.filter;
 
 public class FlightFilter {
 
-	private String departureDate;
+	private String travellDate;
 	private String returnDate ;
 	private Integer  departurecity ;
 	private Integer  arrivalCity;
 	 
 	
 	 
-	public String getDepartureDate() {
-		return departureDate;
+ 
+public String getTravellDate() {
+		return travellDate;
 	}
-	public void setDepartureDate(String departureDate) {
-		this.departureDate = departureDate;
+	public void setTravellDate(String travellDate) {
+		this.travellDate = travellDate;
 	}
-	public String getReturnDate() {
+		public String getReturnDate() {
 		return returnDate;
 	}
 	public void setReturnDate(String returnDate) {
