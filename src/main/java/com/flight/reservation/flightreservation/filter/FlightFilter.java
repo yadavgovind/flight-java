@@ -1,21 +1,17 @@
 package com.flight.reservation.flightreservation.filter;
 
 public class FlightFilter {
-
-	private String depatureDate;
+	private String departureDate;
 	private String returnDate ;
 	private Integer  departurecity ;
 	private Integer  arrivalCity;
 
-
-	public String getDepatureDate() {
-		return depatureDate;
+	public String getDepartureDate() {
+		return departureDate;
 	}
-
-	public void setDepatureDate(String depatureDate) {
-		this.depatureDate = depatureDate;
+	public void setDepartureDate(String departureDate) {
+		this.departureDate = departureDate;
 	}
-
 	public String getReturnDate() {
 		return returnDate;
 	}

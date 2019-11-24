@@ -19,8 +19,8 @@ public class Flight extends AbstractEntity{
 	private Integer  departurecity ;
 	private Integer numseats ;
 	private String duration ;
-	private LocalDateTime start_date ;
-	private LocalDateTime end_date  ;
+	private LocalDateTime depatureDate ;
+	private LocalDateTime returnDate  ;
 	private Integer business_seat ;
 	private Double business_price ;
 	private Integer checkin_baggage ;
@@ -110,17 +110,24 @@ public class Flight extends AbstractEntity{
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	public LocalDateTime getStart_date() {
-		return start_date;
+	 
+	public Integer getArrivalcity() {
+		return arrivalcity;
 	}
-	public void setStart_date(LocalDateTime start_date) {
-		this.start_date = start_date;
+	public void setArrivalcity(Integer arrivalcity) {
+		this.arrivalcity = arrivalcity;
 	}
-	public LocalDateTime getEnd_date() {
-		return end_date;
+	public LocalDateTime getDepatureDate() {
+		return depatureDate;
 	}
-	public void setEnd_date(LocalDateTime end_date) {
-		this.end_date = end_date;
+	public void setDepatureDate(LocalDateTime depatureDate) {
+		this.depatureDate = depatureDate;
+	}
+	public LocalDateTime getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(LocalDateTime end_date) {
+		this.returnDate = end_date;
 	}
 	public Integer getBusiness_seat() {
 		return business_seat;
