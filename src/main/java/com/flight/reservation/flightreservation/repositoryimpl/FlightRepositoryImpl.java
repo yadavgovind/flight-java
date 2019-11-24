@@ -29,9 +29,11 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
 	@Override
 	public List<Flight> findAll(FlightFilter filter) {
 		
+ 
 		List<Flight>   flights= new ArrayList<>();
 		if (StringUtils.isNotBlank(filter.getTravellDate())) {
 			String str1 = filter.getTravellDate() + " 00:00:00";
+ 
 			LocalDateTime startDate = LocalDateTime.parse(str1, formatter);
 			flights= entityManager.createQuery( 
 					"  from Flight flight0_ where :startDate BETWEEN flight0_.start_date AND flight0_.end_date and flight0_.departurecity=:departureCity and flight0_.arrivalcity=:arrivalCity")
