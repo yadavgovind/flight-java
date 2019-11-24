@@ -5,8 +5,8 @@ public class FlightFilter {
 
 	private String travellDate;
 	private String returnDate ;
-	private Integer  departurecity ;
-	private Integer  arrivalCity;
+	private Long  departurecity ;
+	private Long  arrivalCity;
 	 
 	
 	 
@@ -25,16 +25,16 @@ public String getTravellDate() {
 		this.returnDate = returnDate;
 	}
 
-	public Integer getDeparturecity() {
+	public Long getDeparturecity() {
 		return departurecity;
 	}
-	public void setDeparturecity(Integer departurecity) {
+	public void setDeparturecity(Long departurecity) {
 		this.departurecity = departurecity;
 	}
-	public Integer getArrivalCity() {
+	public Long getArrivalCity() {
 		return arrivalCity;
 	}
-	public void setArrivalCity(Integer arrivalCity) {
+	public void setArrivalCity(Long arrivalCity) {
 		this.arrivalCity = arrivalCity;
 	}
 	
