@@ -2,23 +2,24 @@ package com.flight.reservation.flightreservation.filter;
 
 public class FlightFilter {
 
-	private String startDate;
-	private String endDate ;
+	private String departureDate;
+	private String returnDate ;
 	private Integer  departurecity ;
 	private Integer  arrivalCity;
 	 
 	
-	public String getStartDate() {
-		return startDate;
+	 
+	public String getDepartureDate() {
+		return departureDate;
 	}
-	public void setStartDate(String start_date) {
-		this.startDate = start_date;
+	public void setDepartureDate(String departureDate) {
+		this.departureDate = departureDate;
 	}
-	public String getEndDate() {
-		return endDate;
+	public String getReturnDate() {
+		return returnDate;
 	}
-	public void setEndDate(String end_date) {
-		this.endDate = end_date;
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
 	}
 	public Integer getDeparturecity() {
 		return departurecity;

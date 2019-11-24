@@ -40,16 +40,16 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom{
 		 List<Predicate> criteriaList = new ArrayList<>();
 		
 	
-		if(StringUtils.isNotBlank(filter.getStartDate())) {
-			String str1= filter.getStartDate()+" 00:00:00";
+		if(StringUtils.isNotBlank(filter.getDepartureDate() )) {
+			String str1= filter.getDepartureDate()+" 00:00:00";
 			LocalDateTime startDate = LocalDateTime.parse(str1, formatter);
-	        Predicate arivaldateC = builder.equal(root.get("start_date"), startDate);
+	        Predicate arivaldateC = builder.equal(root.get("depatureDate"), startDate);
 	        criteriaList.add(arivaldateC);
 		}
-		if(StringUtils.isNotBlank(filter.getEndDate())) {
-			String str2= filter.getEndDate()+" 00:00:00";
+		if(StringUtils.isNotBlank(filter.getReturnDate())) {
+			String str2= filter.getReturnDate()+" 00:00:00";
 			  LocalDateTime endDate = LocalDateTime.parse(str2, formatter);;
-		        Predicate departureDateC = builder.equal(root.get("end_date"), endDate);
+		        Predicate departureDateC = builder.equal(root.get("returnDate"), endDate);
 		        criteriaList.add(departureDateC);
 		}
 	        Predicate departureCityC = builder.equal(root.get("departurecity"), filter.getDeparturecity());
