@@ -14,6 +14,12 @@ public class Reservation extends AbstractEntity
 	
 	private boolean isCheckedIn;
     private int numBags;
+    private int passengerId;
+    private int seatNo;
+    private boolean isCancel;
+    private int loginId;
+     
+     
 	public Passenger getPassenger() {
 		return Passenger;
 	}
@@ -37,6 +43,30 @@ public class Reservation extends AbstractEntity
 	}
 	public void setNumBags(int numBags) {
 		this.numBags = numBags;
+	}
+	public int getPassengerId() {
+		return passengerId;
+	}
+	public void setPassengerId(int passengerId) {
+		this.passengerId = passengerId;
+	}
+	public int getSeatNo() {
+		return seatNo;
+	}
+	public void setSeatNo(int seatNo) {
+		this.seatNo = seatNo;
+	}
+	public boolean isCancel() {
+		return isCancel;
+	}
+	public void setCancel(boolean isCancel) {
+		this.isCancel = isCancel;
+	}
+	public int getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(int loginId) {
+		this.loginId = loginId;
 	}
     
     
