@@ -11,6 +11,9 @@ public class Passenger extends AbstractEntity
 	private String middleName;
 	private String email;
 	private String phone;
+	private String adharCard;
+	private String pancard;
+	
 	
 	
 	public String getFirstName() {
@@ -42,6 +45,18 @@ public class Passenger extends AbstractEntity
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public String getAdharCard() {
+		return adharCard;
+	}
+	public void setAdharCard(String adharCard) {
+		this.adharCard = adharCard;
+	}
+	public String getPancard() {
+		return pancard;
+	}
+	public void setPancard(String pancard) {
+		this.pancard = pancard;
 	}
 	
 	

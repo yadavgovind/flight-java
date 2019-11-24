@@ -17,7 +17,7 @@ import com.flight.reservation.flightreservation.model.Flight;
 import com.flight.reservation.flightreservation.repository.CityRepository;
 import com.flight.reservation.flightreservation.repository.FlightRepository;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/flight")
 public class FlightSearchController { 
