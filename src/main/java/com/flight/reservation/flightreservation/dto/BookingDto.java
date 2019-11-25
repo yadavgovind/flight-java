@@ -7,8 +7,7 @@ public class BookingDto implements Serializable {
     private boolean isAdult;
 
     private boolean isChild;
-    private boolean isEconomy;
-    private boolean isBussiness;
+     private String type ;
     private int flightId;
     private double price;
 
@@ -36,23 +35,17 @@ public class BookingDto implements Serializable {
         this.isChild = isChild;
     }
 
-    public boolean isEconomy() {
-        return this.isEconomy;
-    }
+    
 
-    public void setEconomy(final boolean isEconomy) {
-        this.isEconomy = isEconomy;
-    }
+    public String getType() {
+		return type;
+	}
 
-    public boolean isBussiness() {
-        return this.isBussiness;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setBussiness(final boolean isBussiness) {
-        this.isBussiness = isBussiness;
-    }
-
-    public int getFlightId() {
+	public int getFlightId() {
         return this.flightId;
     }
 

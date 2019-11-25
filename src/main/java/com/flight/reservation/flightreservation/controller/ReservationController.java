@@ -48,17 +48,11 @@ public class ReservationController {
         final BookingDto bookingFlight = bookingDtos.iterator()
             .next();
         final Optional<Flight> flight = this.flightRepository.findById(Long.valueOf(bookingFlight.getFlightId()));
+      
         if (!flight.isPresent()) {
             return;
         }
-        if (bookingFlight.isEconomy() && flight.get()
-            .getNumseats() < 0) {
-            return;
-        }
-        else if (bookingFlight.isBussiness() && flight.get()
-            .getBusiness_seat() > 0) {
-            return;
-        }
+        
         final Reservation reservation = new Reservation();
         final List<Passenger> passengers = new ArrayList<>();
         bookingDtos.forEach(bookingDto -> {
