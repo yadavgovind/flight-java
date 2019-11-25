@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,9 @@ import com.flight.reservation.flightreservation.model.Reservation;
 import com.flight.reservation.flightreservation.repository.FlightRepository;
 import com.flight.reservation.flightreservation.repository.ReservationRepository;
 
+@CrossOrigin(
+    origins = "http://localhost:4200",
+    maxAge = 3600)
 @RestController
 public class ReservationController {
 
@@ -75,7 +79,11 @@ public class ReservationController {
 
         final Reservation saveValue = this.reservationRepository.save(reservation);
         if (saveValue.getId() != null) {
-            sendEmail();
+            final Passenger passenger = saveValue.getPassengers()
+                .get(0);
+            final MailDto mailDto = new MailDto();
+            mailDto.setToId(passenger.getEmail());
+            sendEmail(mailDto);
         }
     }
 
@@ -85,10 +93,11 @@ public class ReservationController {
         this.reservationRepository.saveAll(reservations);
     }
 
-    private void sendEmail() {
-        final MailDto mailDto = new MailDto();
-        final SimpleMailMessage msg = new SimpleMailMessage();
+    private void sendEmail(final MailDto mailDto) {
 
+        final SimpleMailMessage msg = new SimpleMailMessage();
+        mailDto.setFromId("yadavgovind7892@gmail.com");
+        mailDto.setTitle("save booking");
         msg.setFrom(mailDto.getFromId());
         msg.setTo(mailDto.getToId());
         msg.setSubject(mailDto.getSubject());
