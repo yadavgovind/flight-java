@@ -12,7 +12,7 @@ private boolean isAdult;
 private boolean isChild;
 private boolean isEconomy;
 private boolean isBussiness;
-private int flightNo;
+private int flightId;
 private double price;
 
 private String firstName;
@@ -46,11 +46,11 @@ public boolean isBussiness() {
 public void setBussiness(boolean isBussiness) {
 	this.isBussiness = isBussiness;
 }
-public int getFlightNo() {
-	return flightNo;
+public int getFlightId() {
+	return flightId;
 }
-public void setFlightNo(int flightNo) {
-	this.flightNo = flightNo;
+public void setFlightId(int flightNo) {
+	this.flightId = flightNo;
 }
 public double getPrice() {
 	return price;

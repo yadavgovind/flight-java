@@ -1,6 +1,8 @@
 package com.flight.reservation.flightreservation.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flight.reservation.flightreservation.dto.BookingDto;
 import com.flight.reservation.flightreservation.dto.MailDto;
+import com.flight.reservation.flightreservation.model.Flight;
 import com.flight.reservation.flightreservation.model.Passenger;
 import com.flight.reservation.flightreservation.model.Reservation;
 import com.flight.reservation.flightreservation.repository.FlightRepository;
@@ -37,28 +40,38 @@ public class ReservationController {
 
     @PostMapping(
         value = "/reservation")
-    private synchronized void create(@RequestBody BookingDto bookingDto) {
+    private synchronized void create(@RequestBody final List<BookingDto> bookingDtos) {
+        final BookingDto bookingFlight = bookingDtos.iterator()
+            .next();
+        final Optional<Flight> flight = this.flightRepository.findById(Long.valueOf(bookingFlight.getFlightId()));
+        if (!flight.isPresent()) {
+            return;
+        }
+        if (bookingFlight.isEconomy() && flight.get()
+            .getNumseats() < 0) {
+            return;
+        }
+        else if (bookingFlight.isBussiness() && flight.get()
+            .getBusiness_seat() > 0) {
+            return;
+        }
         final Reservation reservation = new Reservation();
-        final Passenger passenger = new Passenger();
-        this.flightRepository.findById(Long.valueOf(bookingDto.getFlightNo()))
-            .ifPresent(flight -> {
-                passenger.setAdharCard(bookingDto.getAdharCard());
-                passenger.setEmail(bookingDto.getEmail());
-                passenger.setFirstName(bookingDto.getFirstName());
-                passenger.setLastName(bookingDto.getLastName());
-                passenger.setPancard(bookingDto.getPancard());
-                passenger.setPhone(bookingDto.getPhone());
+        final List<Passenger> passengers = new ArrayList<>();
+        bookingDtos.forEach(bookingDto -> {
+            final Passenger passenger = new Passenger();
+            passenger.setEmail(bookingDto.getEmail());
+            passenger.setFirstName(bookingDto.getFirstName());
+            passenger.setLastName(bookingDto.getLastName());
+            passenger.setPhone(bookingDto.getPhone());
+            // this.passengerRepository.save(passenger);
+            passengers.add(passenger);
 
-                reservation.setCancel(false);
-                reservation.setFlight(flight);
-                if (bookingDto.isEconomy() && flight.getNumseats() > 0) {
+        });
 
-                }
-                else if (bookingDto.isBussiness() && flight.getBusiness_seat() > 0) {
-
-                }
-                reservation.setPassenger(passenger);
-            });
+        reservation.setCancel(false);
+        reservation.setFlight(flight.get());
+        reservation.setPassengers(passengers);
+        passengers.forEach(passenger -> passenger.setReservation(reservation));
 
         final Reservation saveValue = this.reservationRepository.save(reservation);
         if (saveValue.getId() != null) {
@@ -68,7 +81,7 @@ public class ReservationController {
 
     @PostMapping(
         value = "/reservationAll")
-    private void createAll(@RequestBody List<Reservation> reservations) {
+    private void createAll(@RequestBody final List<Reservation> reservations) {
         this.reservationRepository.saveAll(reservations);
     }
 
