@@ -4,19 +4,21 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Flight extends AbstractEntity{
 	
 	private String flightnumber;
 	private String operatingairlines;
-	 
-	private Integer arrivalcity ;
+	@OneToOne
+	private City arrivalcity ;
 	private Double economyprice;
 	 
 	private String arrival_time;
 	private String depature_time ;
-	private Integer  departurecity ;
+	@OneToOne
+	private City  departurecity ;
 	private Integer numseats ;
 	private String duration ;
 	private LocalDateTime start_date ;
@@ -39,10 +41,10 @@ public class Flight extends AbstractEntity{
 		this.operatingairlines = operatingairlines;
 	}
 	 
-	public Integer getArrivalCity() {
+	public City getArrivalCity() {
 		return arrivalcity;
 	}
-	public void setArrivalCity(Integer arrivalcity) {
+	public void setArrivalCity(City arrivalcity) {
 		this.arrivalcity = arrivalcity;
 	}
 	 
@@ -92,10 +94,10 @@ public class Flight extends AbstractEntity{
 	public void setDepature_time(String depature_time) {
 		this.depature_time = depature_time;
 	}
-	public Integer getDeparturecity() {
+	public City getDeparturecity() {
 		return departurecity;
 	}
-	public void setDeparturecity(Integer departurecity) {
+	public void setDeparturecity(City departurecity) {
 		this.departurecity = departurecity;
 	}
 	public Integer getNumseats() {
