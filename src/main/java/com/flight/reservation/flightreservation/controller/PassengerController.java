@@ -12,17 +12,21 @@ import com.flight.reservation.flightreservation.model.Passenger;
 import com.flight.reservation.flightreservation.repository.PassengerRepository;
 
 @RestController
+// @RequestMapping("/api")
 public class PassengerController {
 
-	@Autowired
-	private PassengerRepository passengerRepository;
-	
-	@GetMapping(value="/passengers")
-	public List<Passenger> findAll(){
-		return passengerRepository.findAll();
-	}
-	@PostMapping(value="/passenger")
-	public void create(@RequestBody Passenger entity){
-		  passengerRepository.save(entity);
-	}
+    @Autowired
+    private PassengerRepository passengerRepository;
+
+    @GetMapping(
+        value = "/passengers")
+    public List<Passenger> findAll() {
+        return this.passengerRepository.findAll();
+    }
+
+    @PostMapping(
+        value = "/passenger")
+    public void create(@RequestBody final Passenger entity) {
+        this.passengerRepository.save(entity);
+    }
 }

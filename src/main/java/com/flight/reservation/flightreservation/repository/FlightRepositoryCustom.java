@@ -8,6 +8,6 @@ import com.flight.reservation.flightreservation.model.Flight;
 
 public interface FlightRepositoryCustom{
 
-	List<Flight> findAll(FlightFilter filter);
+	List<Flight> findAll(FlightFilter filter,boolean isReturn);
 	
 }
