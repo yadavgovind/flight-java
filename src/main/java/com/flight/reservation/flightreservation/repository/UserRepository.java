@@ -14,6 +14,7 @@ import com.flight.reservation.flightreservation.model.UserDetails;
 public interface UserRepository  extends JpaRepository<UserDetails, Long>{
 
 	UserDetails findByEmail(String email);
+	UserDetails findByUsername(String username);
 	
 	//Optional<User> findByUserName(String username);
 

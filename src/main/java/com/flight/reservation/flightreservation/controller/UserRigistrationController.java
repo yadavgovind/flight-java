@@ -9,19 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flight.reservation.flightreservation.model.UserDetails;
 import com.flight.reservation.flightreservation.repository.UserRepository;
+import com.flight.reservation.flightreservation.repositoryimpl.JwtUserDetailsService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/user")
 public class UserRigistrationController {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private JwtUserDetailsService jwtUserService;
 	
 	
 //	UserRegistrationImpl userRepository2=new UserRegistrationImpl();
 	@RequestMapping(value = "/adduser", produces = "application/json", consumes = "application/json", method = RequestMethod.POST)
 	public void  createUser(@RequestBody UserDetails user) {
-		userRepository.save(user);
+		jwtUserService.save(user);
+//		userRepository.save(user);
 		
 	}
 	@RequestMapping(value = "/getUser", produces = "application/json", consumes = "application/json", method = RequestMethod.POST)
