@@ -4,52 +4,28 @@ import java.io.Serializable;
 
 public class BookingDto implements Serializable {
 
-    private boolean isAdult;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-    private boolean isChild;
-     private String type ;
-    private int flightId;
+    private Long flightId;
     private double price;
-
     private String firstName;
     private String lastName;
     private String middleName;
     private String email;
     private String phone;
-    private String adharCard;
-    private String pancard;
+    private String passengerType;
+    private String type;
+    private String journyDate;
+    private int noOfSheet;
 
-    public boolean isAdult() {
-        return this.isAdult;
-    }
-
-    public void setAdult(final boolean isAdult) {
-        this.isAdult = isAdult;
-    }
-
-    public boolean isChild() {
-        return this.isChild;
-    }
-
-    public void setChild(final boolean isChild) {
-        this.isChild = isChild;
-    }
-
-    
-
-    public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public int getFlightId() {
+    public Long getFlightId() {
         return this.flightId;
     }
 
-    public void setFlightId(final int flightNo) {
+    public void setFlightId(final Long flightNo) {
         this.flightId = flightNo;
     }
 
@@ -101,20 +77,36 @@ public class BookingDto implements Serializable {
         this.phone = phone;
     }
 
-    public String getAdharCard() {
-        return this.adharCard;
+    public String getPassengerType() {
+        return this.passengerType;
     }
 
-    public void setAdharCard(final String adharCard) {
-        this.adharCard = adharCard;
+    public void setPassengerType(final String passengerType) {
+        this.passengerType = passengerType;
     }
 
-    public String getPancard() {
-        return this.pancard;
+    public String getType() {
+        return this.type;
     }
 
-    public void setPancard(final String pancard) {
-        this.pancard = pancard;
+    public void setType(final String type) {
+        this.type = type;
+    }
+
+    public String getJournyDate() {
+        return this.journyDate;
+    }
+
+    public void setJournyDate(final String journyDate) {
+        this.journyDate = journyDate;
+    }
+
+    public int getNoOfSheet() {
+        return this.noOfSheet;
+    }
+
+    public void setNoOfSheet(final int noOfSheet) {
+        this.noOfSheet = noOfSheet;
     }
 
 }

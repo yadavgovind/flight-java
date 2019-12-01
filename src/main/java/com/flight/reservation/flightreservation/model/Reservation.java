@@ -1,19 +1,25 @@
 package com.flight.reservation.flightreservation.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Reservation extends AbstractEntity {
 
     @OneToMany(
         mappedBy = "reservation",
-        cascade = CascadeType.ALL)
+        cascade = CascadeType.ALL,
+        fetch = FetchType.LAZY)
     // @JoinColumn()
+    @JsonIgnore
     private List<Passenger> passengers;
     @OneToOne
     private Flight flight;
@@ -21,10 +27,12 @@ public class Reservation extends AbstractEntity {
     private boolean isCheckedIn;
     private int numBags;
 
-    private int seatNo;
+    private int totalSeat;
     private boolean isCancel;
-    private int loginId;
-
+    private Long loginId;
+    private String type;
+    private String pnrNo;
+    private Date travelDate;
     public Flight getFlight() {
         return this.flight;
     }
@@ -49,12 +57,12 @@ public class Reservation extends AbstractEntity {
         this.numBags = numBags;
     }
 
-    public int getSeatNo() {
-        return this.seatNo;
+    public int getTotalSeat() {
+        return totalSeat;
     }
 
-    public void setSeatNo(final int seatNo) {
-        this.seatNo = seatNo;
+    public void setTotalSeat(int totalSeat) {
+        this.totalSeat = totalSeat;
     }
 
     public boolean isCancel() {
@@ -65,11 +73,11 @@ public class Reservation extends AbstractEntity {
         this.isCancel = isCancel;
     }
 
-    public int getLoginId() {
+    public Long getLoginId() {
         return this.loginId;
     }
 
-    public void setLoginId(final int loginId) {
+    public void setLoginId(final Long loginId) {
         this.loginId = loginId;
     }
 
@@ -81,4 +89,27 @@ public class Reservation extends AbstractEntity {
         this.passengers = passengers;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(final String type) {
+        this.type = type;
+    }
+
+    public String getPnrNo() {
+        return pnrNo;
+    }
+
+    public void setPnrNo(String pnrNo) {
+        this.pnrNo = pnrNo;
+    }
+
+    public Date getTravelDate() {
+        return travelDate;
+    }
+
+    public void setTravelDate(Date travelDate) {
+        this.travelDate = travelDate;
+    }
 }
