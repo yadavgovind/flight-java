@@ -40,7 +40,7 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
 
 
         }else
-        if (StringUtils.isNotBlank(filter.getReturnDate())&&!isReturn) {
+        if (StringUtils.isNotBlank(filter.getReturnDate())&&isReturn) {
             final String str1 = filter.getReturnDate() + " 12:00:00";
             final LocalDateTime startDate = LocalDateTime.parse(str1, this.formatter);
 
