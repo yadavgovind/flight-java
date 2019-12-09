@@ -1,59 +1,81 @@
 package com.flight.reservation.flightreservation.repositoryimpl;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.flight.reservation.flightreservation.dto.PassegerDto;
-import com.flight.reservation.flightreservation.model.Reservation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.flight.reservation.flightreservation.dto.PassegerDto;
 import com.flight.reservation.flightreservation.filter.ReservationFilter;
+import com.flight.reservation.flightreservation.model.Reservation;
 import com.flight.reservation.flightreservation.repository.ReservationRepositoryCustom;
-@Transactional(readOnly = false)
+
+@Transactional(
+    readOnly = false)
 public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
     @PersistenceContext
     EntityManager entityManager;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public int findAvailableSeat(final ReservationFilter filter) {
         int sheat = 0;
         if (!StringUtils.isEmpty(filter.getJournyDate())) {
-            final String str1 = filter.getJournyDate() + " 12:00:00";
-            final LocalDateTime startDate = LocalDateTime.parse(str1, this.formatter);
-            sheat = this.entityManager.createQuery(" select  sum(res.totalSeat) from Reservation  as res left join "
-                    + " res.flight where  res.flight.id= :flightId and res.flight.start_date = :startDate and res.type=:type and  res.isCancel=false ")
-                .setParameter("startDate", startDate)
-                .setParameter("type", filter.getType())
-                .setParameter("flightId", filter.getFlightId())
-                .getFirstResult();
+            String sheatType = "fl.business_seat";
+            if (filter.getType()
+                .equals("Economy")) {
+                sheatType = "fl.numseats";
+            }
+            try {
+
+                final Object object = this.entityManager.createNativeQuery("select (" + sheatType
+                        + "- sum( rs.total_seat)) from reservation as rs INNER JOIN flight as fl on fl.id =rs.flight_id where "
+                        + " rs.flight_id=:flightId and rs.type= :type and rs.is_cancel=FALSE and fl.start_date =STR_TO_DATE(:stdDate, '%Y-%m-%d')")
+
+                    .setParameter("stdDate", filter.getJournyDate())
+                    .setParameter("type", filter.getType())
+                    .setParameter("flightId", filter.getFlightId())
+                    .getResultList()
+                    .get(0);
+                sheat = new BigDecimal(String.valueOf(object)).intValue();
+                if (sheat < 0) {
+                    sheat = 0;
+                }
+
+            }
+            catch (final Exception e) {
+
+                e.printStackTrace();
+            }
+
         }
         return sheat;
     }
 
     @Override
-    public List<Reservation> getReservationByLoginId(Long loginId) {
-        return this.entityManager.createQuery(" from Reservation  as res left join "
-                + " res.flight where  res.loginId=:loginId").setParameter("loginId",loginId).getResultList();
+    public List<Reservation> getReservationByLoginId(final Long loginId) {
+        return this.entityManager.createQuery(" from Reservation  as res left join " + " res.flight where  res.loginId=:loginId")
+            .setParameter("loginId", loginId)
+            .getResultList();
     }
 
     @Override
-    public void cancelReservation(Long resId) {
+    public void cancelReservation(final Long resId) {
         this.entityManager.createNativeQuery("update reservation set is_cancel=true where id=:resId")
-                .setParameter("resId",resId).executeUpdate();
+            .setParameter("resId", resId)
+            .executeUpdate();
     }
 
     @Override
-    public void changeSeat(PassegerDto dto) {
+    public void changeSeat(final PassegerDto dto) {
         this.entityManager.createNativeQuery("update passenger set seat_no=:seatNo where id=:pid")
-                .setParameter("seatNo",dto.getSeatNo())
-                .setParameter("pid",dto.getId()).executeUpdate();
+            .setParameter("seatNo", dto.getSeatNo())
+            .setParameter("pid", dto.getId())
+            .executeUpdate();
     }
 
 }
