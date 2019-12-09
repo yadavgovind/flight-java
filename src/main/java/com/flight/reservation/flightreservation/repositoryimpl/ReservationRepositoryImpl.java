@@ -7,12 +7,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.flight.reservation.flightreservation.dto.PassegerDto;
 import com.flight.reservation.flightreservation.model.Reservation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.flight.reservation.flightreservation.filter.ReservationFilter;
 import com.flight.reservation.flightreservation.repository.ReservationRepositoryCustom;
-
+@Transactional(readOnly = false)
 public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
     @PersistenceContext
@@ -40,4 +42,18 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
         return this.entityManager.createQuery(" from Reservation  as res left join "
                 + " res.flight where  res.loginId=:loginId").setParameter("loginId",loginId).getResultList();
     }
+
+    @Override
+    public void cancelReservation(Long resId) {
+        this.entityManager.createNativeQuery("update reservation set is_cancel=true where id=:resId")
+                .setParameter("resId",resId).executeUpdate();
+    }
+
+    @Override
+    public void changeSeat(PassegerDto dto) {
+        this.entityManager.createNativeQuery("update passenger set seat_no=:seatNo where id=:pid")
+                .setParameter("seatNo",dto.getSeatNo())
+                .setParameter("pid",dto.getId()).executeUpdate();
+    }
+
 }

@@ -16,6 +16,7 @@ public class Passenger extends AbstractEntity {
     private String uniqueId;
     private String gender;
     private String type;
+    private Integer seatNo;
     @ManyToOne(
         cascade = CascadeType.ALL)
     @JoinColumn
@@ -93,4 +94,11 @@ public class Passenger extends AbstractEntity {
         this.reservation = reservation;
     }
 
+    public Integer getSeatNo() {
+        return seatNo;
+    }
+
+    public void setSeatNo(Integer seatNo) {
+        this.seatNo = seatNo;
+    }
 }
