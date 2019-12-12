@@ -26,7 +26,9 @@ import com.flight.reservation.flightreservation.model.Passenger;
 import com.flight.reservation.flightreservation.model.Reservation;
 import com.flight.reservation.flightreservation.repository.FlightRepository;
 import com.flight.reservation.flightreservation.repository.ReservationRepository;
+import com.flight.reservation.flightreservation.service.EmailService;
 import com.flight.reservation.flightreservation.service.JwtUserDetailsService;
+import com.sendgrid.Email;
 
 @RestController
 public class ReservationController {
@@ -38,7 +40,7 @@ public class ReservationController {
     private FlightRepository flightRepository;
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    private EmailService mailService;
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
@@ -89,9 +91,9 @@ public class ReservationController {
         filter.setJournyDate(isReturn ? bookingDto.getReturnDate() : bookingDto.getJournyDate());
         filter.setType(bookingDto.getType());
         final int noOfseat = this.reservationRepository.findAvailableSeat(filter);
-
-        if (noOfseat < flight.get()
-            .getSeatNo()) {
+System.out.println("total seat:"+bookingDto.getNoOfSheet());
+System.out.println("availabe seat: "+noOfseat);
+        if (bookingDto.getNoOfSheet()>noOfseat ) {
             System.out.println("no of seat exceed");
             return "sheat is not available in " + bookingDto.getType();
         }
@@ -129,7 +131,8 @@ public class ReservationController {
             final Passenger passenger = saveValue.getPassengers()
                 .get(0);
             final MailDto mailDto = new MailDto();
-            mailDto.setTitle("check status with Pnr No : " + pnr);
+            mailDto.setSubject("Flight Booked:"+pnr.toUpperCase());
+            mailDto.setTitle("check status with Pnr No : " + pnr.toUpperCase());
             mailDto.setToId(passenger.getEmail());
             sendEmail(mailDto);
         }
@@ -138,15 +141,7 @@ public class ReservationController {
 
     private void sendEmail(final MailDto mailDto) {
 
-        final SimpleMailMessage msg = new SimpleMailMessage();
-        mailDto.setFromId("yadavgovind7892@gmail.com");
-
-        msg.setFrom(mailDto.getFromId());
-        msg.setTo(mailDto.getToId());
-        msg.setSubject(mailDto.getSubject());
-        msg.setText(mailDto.getTitle());
-
-        this.javaMailSender.send(msg);
+        this.mailService.send(new Email(mailDto.getToId()), mailDto.getTitle(), mailDto.getSubject());
     }
 
 }

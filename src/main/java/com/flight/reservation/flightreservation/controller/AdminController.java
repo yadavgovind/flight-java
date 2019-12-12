@@ -57,7 +57,7 @@ public class AdminController {
         passengers.forEach(passenger -> {
 
             final SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setFrom("yadavgovind7892@gmail.com");
+            msg.setFrom("aishwarya.asp9@gmail.com");
             msg.setTo(passenger.getEmail());
             msg.setSubject("reservation cancelled");
             msg.setText(passenger.getReservation()
