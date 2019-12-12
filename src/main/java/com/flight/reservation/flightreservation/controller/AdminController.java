@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flight.reservation.flightreservation.dto.MailDto;
 import com.flight.reservation.flightreservation.model.FlightShedule;
 import com.flight.reservation.flightreservation.model.Passenger;
 import com.flight.reservation.flightreservation.model.Reservation;
 import com.flight.reservation.flightreservation.repository.FlightSheduleRepository;
 import com.flight.reservation.flightreservation.repository.PassengerRepository;
 import com.flight.reservation.flightreservation.repository.ReservationRepository;
+import com.flight.reservation.flightreservation.service.EmailService;
+import com.sendgrid.Email;
 
 @RestController
 public class AdminController {
@@ -34,6 +37,9 @@ public class AdminController {
 
     @Autowired
     private JavaMailSender javaMailSender;
+    
+    @Autowired
+    private EmailService mailService;
 
     @GetMapping("/passengers/{pnr}")
     public Map<String, Object> getPassengerByPnr(@PathVariable final String pnr) {
@@ -56,14 +62,25 @@ public class AdminController {
         this.flightSheduleRepository.save(flightShedule);
         passengers.forEach(passenger -> {
 
-            final SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setFrom("aishwarya.asp9@gmail.com");
-            msg.setTo(passenger.getEmail());
-            msg.setSubject("reservation cancelled");
-            msg.setText(passenger.getReservation()
-                .getPnrNo() + " pnr no reservation cancelled");
-            this.javaMailSender.send(msg);
+//            final SimpleMailMessage msg = new SimpleMailMessage();
+//            msg.setFrom("aishwarya.asp9@gmail.com");
+//            msg.setTo(passenger.getEmail());
+//            msg.setSubject("reservation cancelled");
+//            msg.setText(passenger.getReservation()
+//                .getPnrNo() + " pnr no reservation cancelled");
+//            this.javaMailSender.send(msg);
+        	
+        	final MailDto mailDto = new MailDto();
+            mailDto.setSubject("Reservation Cancelled");
+            mailDto.setTitle(passenger.getReservation().getPnrNo() + " pnr no reservation cancelled");
+            mailDto.setToId(passenger.getEmail());
+            sendEmail(mailDto);
         });
+      
+    }//end cancelFlight
+    
+    private void sendEmail(final MailDto mailDto) {
 
+        this.mailService.send(new Email(mailDto.getToId()), mailDto.getTitle(), mailDto.getSubject());
     }
 }
