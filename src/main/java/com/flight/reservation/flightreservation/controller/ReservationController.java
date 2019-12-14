@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flight.reservation.flightreservation.dto.BookingDto;
+import com.flight.reservation.flightreservation.dto.DateUtils;
 import com.flight.reservation.flightreservation.dto.MailDto;
 import com.flight.reservation.flightreservation.filter.ReservationFilter;
 import com.flight.reservation.flightreservation.model.Flight;
@@ -99,12 +100,7 @@ System.out.println("availabe seat: "+noOfseat);
         }
 
         final Reservation reservation = new Reservation();
-        final SimpleDateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
-        try {
-            reservation.setTravelDate(dateFormat.parse(isReturn ? bookingDto.getReturnDate() : bookingDto.getJournyDate()));
-        }
-        catch (final ParseException e) {
-        }
+            reservation.setTravelDate(DateUtils.stringToDate(isReturn ? bookingDto.getReturnDate() : bookingDto.getJournyDate()));
         reservation.setCancel(false);
         reservation.setFlight(flight.get());
         final List<Passenger> passengers = bookingDto.getPassengers()
@@ -135,7 +131,7 @@ System.out.println("availabe seat: "+noOfseat);
                 mailDto.setSubject("Flight Booked:"+pnr.toUpperCase());
                 mailDto.setTitle("check status with Pnr No : " + pnr.toUpperCase());
                 mailDto.setToId(passenger.getEmail());
-                sendEmail(mailDto);
+                 sendEmail(mailDto);
         	});
             
         }

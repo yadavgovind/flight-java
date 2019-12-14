@@ -1,6 +1,8 @@
 package com.flight.reservation.flightreservation.repositoryimpl;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.flight.reservation.flightreservation.dto.DateUtils;
 import com.flight.reservation.flightreservation.dto.PassegerDto;
 import com.flight.reservation.flightreservation.filter.ReservationFilter;
 import com.flight.reservation.flightreservation.model.Reservation;
@@ -20,7 +23,9 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
     @PersistenceContext
     EntityManager entityManager;
-
+  
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    
     @Override
     public int findAvailableSeat(final ReservationFilter filter) {
         int sheat = 0;
@@ -80,9 +85,10 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
 	@Override
 	public List<Reservation> getReservationsByDates(String date1, String date2) {
-	 return	this.entityManager.createNativeQuery("from reservation as r where r.travel_date>=:date1 and r.travel_date<=:date2 and rs.is_cancel=TRUE")
-		.setParameter("date1", date1)
-		.setParameter("date2", date2)
+		 
+	 return	this.entityManager.createQuery("  from Reservation as r where r.travelDate BETWEEN :date1 AND :date2 and r.isCancel=TRUE")
+		.setParameter("date1", DateUtils.stringToDate(date1))
+		.setParameter("date2", DateUtils.stringToDate(date2))
 		.getResultList();
 		
 

@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -80,18 +82,14 @@ public class AdminController {
         System.out.println("reservation size "+reservationList.size());
         this.flightSheduleRepository.save(flightShedule);
         reservationList.forEach(reservation ->
-        						{
-        							 this.reservationRepository.cancelReservation(reservation.getId());
-        						});
+        							 this.reservationRepository.cancelReservation(reservation.getId()));
         
         passengers.forEach(passenger -> {
-
-        	
         	final MailDto mailDto = new MailDto();
             mailDto.setSubject("Reservation Cancelled");
             mailDto.setTitle(passenger.getReservation().getPnrNo() + " pnr no reservation cancelled");
             mailDto.setToId(passenger.getEmail());
-            sendEmail(mailDto);
+           sendEmail(mailDto);
         });
       
     }//end cancelFlight
@@ -102,10 +100,10 @@ public class AdminController {
     }
     
     
-    @GetMapping("/bookingCancellations")
-    public List<Reservation> getReservationsCancelled(@RequestBody final CancelFilter cancelFilter) {
+    @GetMapping("/bookingCancellations/{date1}/{date2}")
+    public List<Reservation> getReservationsCancelled(@PathVariable("date1" ) String date1,@PathVariable("date2") String date2) {
     	//List<Reservation> reservation = this.reservationRepository.findAll();
-         List<Reservation> reservation = this.reservationRepository.getReservationsByDates(cancelFilter.getDate1(), cancelFilter.getDate1());
+         List<Reservation> reservation = this.reservationRepository.getReservationsByDates(date1, date2);
         System.out.println("Inside reservation");
         return reservation;
 

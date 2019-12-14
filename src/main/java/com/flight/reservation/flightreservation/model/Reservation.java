@@ -1,5 +1,6 @@
 package com.flight.reservation.flightreservation.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class Reservation extends AbstractEntity {
 	private Long loginId;
     private String type;
     private String pnrNo;
-    private Date travelDate;
+    private LocalDateTime travelDate;
     public Flight getFlight() {
         return this.flight;
     }
@@ -114,11 +115,11 @@ public class Reservation extends AbstractEntity {
         this.pnrNo = pnrNo;
     }
 
-    public Date getTravelDate() {
+    public LocalDateTime getTravelDate() {
         return travelDate;
     }
 
-    public void setTravelDate(Date travelDate) {
+    public void setTravelDate(LocalDateTime travelDate) {
         this.travelDate = travelDate;
     }
 }
