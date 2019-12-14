@@ -29,7 +29,16 @@ public class Reservation extends AbstractEntity {
 
     private int totalSeat;
     private boolean isCancel;
-    private Long loginId;
+    
+    public boolean isCancel() {
+		return isCancel;
+	}
+
+	public void setCancel(boolean isCancel) {
+		this.isCancel = isCancel;
+	}
+
+	private Long loginId;
     private String type;
     private String pnrNo;
     private Date travelDate;
@@ -65,13 +74,13 @@ public class Reservation extends AbstractEntity {
         this.totalSeat = totalSeat;
     }
 
-    public boolean isCancel() {
-        return this.isCancel;
-    }
-
-    public void setCancel(final boolean isCancel) {
-        this.isCancel = isCancel;
-    }
+//    public boolean isCancel() {
+//        return this.isCancel;
+//    }
+//
+//    public void setCancel(final boolean isCancel) {
+//        this.isCancel = isCancel;
+//    }
 
     public Long getLoginId() {
         return this.loginId;

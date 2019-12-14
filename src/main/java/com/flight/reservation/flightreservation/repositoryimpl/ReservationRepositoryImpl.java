@@ -78,4 +78,14 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
             .executeUpdate();
     }
 
+	@Override
+	public List<Reservation> getReservationsByDates(String date1, String date2) {
+	 return	this.entityManager.createNativeQuery("from reservation as r where r.travel_date>=:date1 and r.travel_date<=:date2 and rs.is_cancel=TRUE")
+		.setParameter("date1", date1)
+		.setParameter("date2", date2)
+		.getResultList();
+		
+
+	}
+
 }

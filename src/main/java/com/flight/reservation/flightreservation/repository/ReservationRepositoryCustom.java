@@ -12,4 +12,6 @@ public interface ReservationRepositoryCustom {
     List<Reservation> getReservationByLoginId(Long loginId);
     void cancelReservation(Long resId);
     void changeSeat(PassegerDto dto);
+     
+    List<Reservation> getReservationsByDates(String date1,String date2);
 }

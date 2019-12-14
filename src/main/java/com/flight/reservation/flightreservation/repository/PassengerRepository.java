@@ -1,5 +1,6 @@
 package com.flight.reservation.flightreservation.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,9 @@ public interface PassengerRepository extends JpaRepository<Passenger, Long> {
 
     @Query(" select p from Passenger p where p.reservation.flight.id=?1   and p.reservation.isCancel=false")
     List<Passenger> getPassengerByFlightId(Long id);
+    
+    @Query(" select p from Passenger p where p.reservation.flight.id=?1  and date(p.reservation.travelDate)=date(?2)")
+    List<Passenger> getPassengerByFlightIdAndTravelDate(Long id,String travelDate);
 
     @Query(" select p from Passenger p where p.reservation.flight.id=?1 and p.seatNo=?2 and p.reservation.type=?3 and p.reservation.isCancel=false")
     Passenger getPassengerBySeatNo(Long flightId, Integer seatNo, String type);

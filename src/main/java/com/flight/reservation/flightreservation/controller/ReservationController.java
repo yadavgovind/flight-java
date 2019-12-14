@@ -94,8 +94,8 @@ public class ReservationController {
 System.out.println("total seat:"+bookingDto.getNoOfSheet());
 System.out.println("availabe seat: "+noOfseat);
         if (bookingDto.getNoOfSheet()>noOfseat ) {
-            System.out.println("no of seat exceed");
-            return "sheat is not available in " + bookingDto.getType();
+            System.out.println("no of seat exceeded");
+            return "seat is not available in " + bookingDto.getType();
         }
 
         final Reservation reservation = new Reservation();
@@ -126,15 +126,18 @@ System.out.println("availabe seat: "+noOfseat);
         reservation.setLoginId(this.userDetailsService.getLoginUser()
             .getLoginId());
         passengers.forEach(passenger -> passenger.setReservation(reservation));
-        final Reservation saveValue = this.reservationRepository.save(reservation);
-        if (saveValue.getId() != null) {
-            final Passenger passenger = saveValue.getPassengers()
-                .get(0);
-            final MailDto mailDto = new MailDto();
-            mailDto.setSubject("Flight Booked:"+pnr.toUpperCase());
-            mailDto.setTitle("check status with Pnr No : " + pnr.toUpperCase());
-            mailDto.setToId(passenger.getEmail());
-            sendEmail(mailDto);
+        final Reservation reservationSaved = this.reservationRepository.save(reservation);
+        if (reservationSaved.getId() != null) {
+//            final Passenger passenger = saveValue.getPassengers()
+//                .get(0);
+        	reservationSaved.getPassengers().forEach(passenger -> {
+        		final MailDto mailDto = new MailDto();
+                mailDto.setSubject("Flight Booked:"+pnr.toUpperCase());
+                mailDto.setTitle("check status with Pnr No : " + pnr.toUpperCase());
+                mailDto.setToId(passenger.getEmail());
+                sendEmail(mailDto);
+        	});
+            
         }
         return "ticket booked successfully";
     }

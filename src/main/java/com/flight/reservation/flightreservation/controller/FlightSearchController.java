@@ -38,9 +38,9 @@ public class FlightSearchController {
 
 	@PostMapping(value = "/getFlights")
 	public FlightSearchDto getFlights(@RequestBody final FlightFilter flightFilter) throws Exception {
-
+		//get cancelled flights
 		List<FlightShedule> cancelFlights = flightSheduleRepository.findAll();
-
+		
 		final List<Flight> arivalFlights = this.flightRepository.findAll(flightFilter, false);
 		final FlightSearchDto flightSearchDto = new FlightSearchDto();
 		Predicate<Flight> pridicateOneWay = flight -> cancelFlights.stream()
@@ -76,7 +76,7 @@ public class FlightSearchController {
 
 	@Async
 	@GetMapping(value = "/citiesWithAshync")
-	public CompletableFuture<List<City>> findAllAshync() {
+	public CompletableFuture<List<City>> findAllAsync() {
 		List<City> findAll = this.cityRepository.findAll();
 
 		System.out.print(Thread.currentThread().getName());
