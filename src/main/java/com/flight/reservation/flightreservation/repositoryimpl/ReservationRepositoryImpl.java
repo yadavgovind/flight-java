@@ -33,8 +33,8 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
             try {
 
                 final Object object = this.entityManager.createNativeQuery("select (" + sheatType
-                        + "- sum( rs.total_seat)) from reservation as rs INNER JOIN flight as fl on fl.id =rs.flight_id where "
-                        + " rs.flight_id=:flightId and rs.type= :type and rs.is_cancel=FALSE and fl.start_date =STR_TO_DATE(:stdDate, '%Y-%m-%d')")
+                        + "- ifnull(sum( rs.total_seat),0)) from reservation as rs INNER JOIN flight as fl on fl.id =rs.flight_id where "
+                        + " fl.id=:flightId and rs.type= :type and rs.is_cancel=FALSE and date(rs.travel_date) =STR_TO_DATE(:stdDate, '%Y-%m-%d')")
 
                     .setParameter("stdDate", filter.getJournyDate())
                     .setParameter("type", filter.getType())
@@ -77,5 +77,15 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
             .setParameter("pid", dto.getId())
             .executeUpdate();
     }
+
+	@Override
+	public List<Reservation> getReservationsByDates(String date1, String date2) {
+	 return	this.entityManager.createNativeQuery("from reservation as r where r.travel_date>=:date1 and r.travel_date<=:date2 and rs.is_cancel=TRUE")
+		.setParameter("date1", date1)
+		.setParameter("date2", date2)
+		.getResultList();
+		
+
+	}
 
 }
