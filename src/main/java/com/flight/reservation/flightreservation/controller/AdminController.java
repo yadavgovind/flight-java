@@ -81,7 +81,7 @@ public class AdminController {
         this.flightSheduleRepository.save(flightShedule);
         reservationList.forEach(reservation ->
         						{
-        							reservation.setCancel(true);
+        							 this.reservationRepository.cancelReservation(reservation.getId());
         						});
         
         passengers.forEach(passenger -> {
